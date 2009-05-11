@@ -1,0 +1,25 @@
+# Copyright 2009 Hong Hao <oahong@gmail.com>
+# Distributed under the terms of the GNU General Public License v2
+
+SUMMARY="STAnd-aLONE system tray(notification area)"
+DESCRIPTION="
+Stalonetray is a stand-alone freedesktop.org and KDE system tray
+(notification area) for X Window System/X11 (e.g. X.Org or XFree 86).
+It has full XEMBED support and minimal dependencies: an X11 lib only.
+Stalonetray works with virtually any EWMH-compliant window manager.
+"
+HOMEPAGE="http://stalonetray.sourceforge.net"
+DOWNLOADS="mirror://sourceforge/${PN}/${PNV}.tar.bz2"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~x86"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build+run:
+        x11-libs/libX11
+        x11-libs/libXpm"
+
+BUGS_TO="oahong@gmail.com"
+REMOTE_IDS="sourceforge:stalonetray freshmeat:stalonetray"

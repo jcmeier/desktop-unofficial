@@ -24,3 +24,8 @@ DEPENDENCIES="
 BUGS_TO="oahong@gmail.com"
 REMOTE_IDS="sourceforge:stalonetray freshmeat:stalonetray"
 UPSTREAM_CHANGELOG="${HOMEPAGE}/news.html"
+
+src_install() {
+    default
+    dodoc stalonetrayrc.sample
+}

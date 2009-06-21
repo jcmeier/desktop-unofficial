@@ -1,0 +1,18 @@
+# Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Distributed under the terms of the GNU General Public License v2
+
+SCM_REPOSITORY="git://anongit.compiz.org/fusion/decorators/${PN}"
+require scm-git compiz autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.10 ] ]
+
+SUMMARY="Emerald themes"
+DOWNLOADS=""
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~x86"
+
+MYOPTIONS=""
+
+# x11-wm/emerald?
+DEPENDENCIES=""
+

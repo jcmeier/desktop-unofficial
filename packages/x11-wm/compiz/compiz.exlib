@@ -1,0 +1,96 @@
+# Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Distributed under the terms of the GNU General Public License v2
+
+export_exlib_phases src_test
+
+SUMMARY="A compositing window manager using OpenGL acceleration for 3D graphics"
+DESCRIPTION=""
+HOMEPAGE="http://www.compiz.org"
+DOWNLOADS="http://releases.compiz.org/core/${PV}/${PNV}.tar.gz"
+
+SLOT="0"
+LICENCES="FIXME"
+
+BUGS_TO=""
+REMOTE_IDS=""
+
+UPSTREAM_CHANGELOG=""
+UPSTREAM_DOCUMENTATION=""
+UPSTREAM_RELEASE_NOTES=""
+
+MYOPTIONS="cairo dbus fuse gnome gtk svg
+    cairo [[ description = [ Builds the annotate plugin (on screen drawing) ] ]]
+
+    gtk [[ description = [ Adds support for GTK window decorations ] ]]
+"
+
+DEPENDENCIES="
+    build:
+      	dev-util/intltool[>=0.23]
+        dev-util/pkg-config
+        sys-devel/gettext
+
+    build+run:
+        dev-libs/libxml2
+        dev-libs/libxslt
+        media-libs/libpng
+        x11-libs/libICE
+        x11-libs/libSM
+        x11-libs/libXcomposite
+        x11-libs/libXdamage
+        x11-libs/libXfixes
+        x11-libs/libXinerama
+      	x11-libs/libXrender[>=0.9.3]
+	    x11-libs/startup-notification[>=0.7]
+
+        cairo? ( x11-libs/cairo[X] )
+
+        dbus? (
+            dev-libs/dbus-glib
+            sys-apps/dbus
+        )
+
+        fuse? ( sys-fs/fuse )
+
+        gtk? (
+              gnome-desktop/libwnck:1
+              x11-libs/gtk+:2[>=2.8]
+              x11-libs/pango
+        )
+
+        svg? (
+            gnome-desktop/librsvg:2[>=2.14]
+        	x11-libs/cairo[>=1.0]
+        )
+
+        gnome? (
+            gnome-platform/GConf:2
+            dev-libs/glib:2
+        )
+"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( '--with-default-plugins' '--enable-inotify' )
+
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLE=(
+    'svg librsvg'
+    'gtk'
+
+    'cairo annotate'
+
+    'dbus'
+    'dbus dbus-glib'
+
+    'fuse'
+
+    'gnome gconf'
+    'gnome glib'
+)
+
+compiz_src_test() {
+    cat <<- EOF > "${WORK}/po/POTFILES.skip"
+gtk/gnome/compiz-wm.desktop.in
+metadata/core.xml.in
+EOF
+
+    default
+}

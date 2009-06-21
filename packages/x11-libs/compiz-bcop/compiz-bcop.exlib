@@ -1,0 +1,24 @@
+# Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Distributed under the terms of the GNU General Public License v2
+
+require compiz
+
+SUMMARY="Compiz option code generator"
+
+LICENCES="GPL-2"
+
+BUGS_TO=""
+REMOTE_IDS=""
+
+UPSTREAM_CHANGELOG=""
+UPSTREAM_DOCUMENTATION=""
+UPSTREAM_RELEASE_NOTES=""
+
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+        dev-util/pkg-config
+    build+run:
+        dev-libs/libxslt
+"

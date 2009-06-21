@@ -1,0 +1,27 @@
+# Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Distributed under the terms of the GNU General Public License v2
+
+require compiz
+
+SUMMARY="Python bindings for compizconfig"
+
+LICENCES="GPL-2"
+
+BUGS_TO=""
+REMOTE_IDS=""
+
+UPSTREAM_CHANGELOG=""
+UPSTREAM_DOCUMENTATION=""
+UPSTREAM_RELEASE_NOTES=""
+
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+        dev-util/pkg-config
+    build+run:
+      	dev-lang/python[>=2.4]
+      	dev-libs/glib:2[>=2.6]
+        dev-python/Pyrex
+     	x11-libs/libcompizconfig[>=0.6.99]
+"

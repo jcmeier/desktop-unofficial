@@ -1,0 +1,28 @@
+# Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Distributed under the terms of the GNU General Public License v2
+
+require compiz
+
+SUMMARY="Compiz configuration system library"
+
+LICENCES="GPL-2 LGPL-2.1"
+
+BUGS_TO=""
+REMOTE_IDS=""
+
+UPSTREAM_CHANGELOG=""
+UPSTREAM_DOCUMENTATION=""
+UPSTREAM_RELEASE_NOTES=""
+
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+    	dev-util/intltool[>=0.35.0]
+        dev-util/pkg-config
+        sys-devel/gettext
+    build+run:
+        dev-libs/libxml2
+        x11-libs/libX11
+        x11-wm/compiz[>=${PV}]
+"

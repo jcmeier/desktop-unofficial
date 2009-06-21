@@ -1,0 +1,27 @@
+# Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Distributed under the terms of the GNU General Public License v2
+
+SCM_REPOSITORY="git://anongit.compiz-fusion.org/users/crdlb/${PN}"
+require scm-git gnome-2 distutils
+
+SUMMARY="Simple tray icon for compiz"
+HOMEPAGE="http://gitweb.opencompositing.org/?p=users/crdlb/fusion-icon"
+DOWNLOADS=""
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~x86"
+
+MYOPTIONS="gtk qt4"
+
+DEPENDENCIES="
+    run:
+        dev-python/compizconfig-python
+        x11-apps/xvinfo
+        x11-wm/compiz
+"
+
+pkg_postinst() {
+    distutils_pkg_postinst
+    gnome-2_pkg_postinst
+}

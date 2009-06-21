@@ -1,0 +1,30 @@
+# Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Distributed under the terms of the GNU General Public License v2
+
+require compiz
+
+SUMMARY="Unsupported compiz plugins"
+DESCRIPTION="
+"
+
+LICENCES="GPL-2"
+
+BUGS_TO=""
+REMOTE_IDS=""
+
+UPSTREAM_CHANGELOG=""
+UPSTREAM_DOCUMENTATION=""
+UPSTREAM_RELEASE_NOTES=""
+
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+      	dev-util/intltool[>=0.35]
+        dev-util/pkg-config
+        sys-devel/gettext
+    build+run:
+      	x11-libs/compiz-bcop-[>=0.7.3]
+        x11-plugins/compiz-plugins-main
+        x11-wm/compiz
+"

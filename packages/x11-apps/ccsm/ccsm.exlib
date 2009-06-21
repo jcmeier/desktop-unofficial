@@ -1,0 +1,31 @@
+# Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Distributed under the terms of the GNU General Public License v2
+
+require compiz distutils gnome-2
+
+export_exlib_phases src_install
+
+SUMMARY="Compiz Config Settings Manager"
+DESCRIPTION="
+"
+
+LICENCES="GPL-2"
+
+BUGS_TO=""
+REMOTE_IDS=""
+
+UPSTREAM_CHANGELOG=""
+UPSTREAM_DOCUMENTATION=""
+UPSTREAM_RELEASE_NOTES=""
+
+MYOPTIONS=""
+
+# sexy-python librsvg cc-py
+DEPENDENCIES="
+    build+run:
+      	gnome-bindings/pygtk:2[>=2.12]
+"
+
+ccsm_src_install() {
+    distutils_src_install --prefix=/usr
+}

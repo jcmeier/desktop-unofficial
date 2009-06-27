@@ -25,11 +25,11 @@ MYOPTIONS="
 
 DEPENDENCIES="
     build:
-      	dev-util/intltool[>=0.35]
+        dev-util/intltool[>=0.35]
         dev-util/pkg-config
         sys-devel/gettext
     build+run:
-     	x11-libs/compiz-bcop[>=0.7.3]
+        x11-libs/compiz-bcop[>=0.7.3]
         x11-wm/compiz
         cairo? ( x11-libs/cairo )
         jpeg?  ( media-libs/jpeg )

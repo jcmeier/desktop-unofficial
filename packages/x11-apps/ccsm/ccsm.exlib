@@ -23,7 +23,7 @@ MYOPTIONS=""
 # sexy-python librsvg cc-py
 DEPENDENCIES="
     build+run:
-      	gnome-bindings/pygtk:2[>=2.12]
+        gnome-bindings/pygtk:2[>=2.12]
 "
 
 ccsm_src_install() {

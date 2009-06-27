@@ -21,12 +21,12 @@ MYOPTIONS=""
 
 DEPENDENCIES="
     build:
-      	dev-util/intltool[>=0.35]
+        dev-util/intltool[>=0.35]
         dev-util/pkg-config
         sys-devel/gettext
     build+run:
         gnome-desktop/libwnck:1
-      	x11-libs/gtk+:2[>=2.8]
+        x11-libs/gtk+:2[>=2.8]
         x11-libs/libXrender[>=0.8.4]
         x11-libs/pango
     run:

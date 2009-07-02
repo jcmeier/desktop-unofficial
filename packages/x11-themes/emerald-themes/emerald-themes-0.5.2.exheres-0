@@ -1,11 +1,10 @@
 # Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
 # Distributed under the terms of the GNU General Public License v2
 
-SCM_REPOSITORY="git://anongit.compiz.org/fusion/decorators/${PN}"
-require scm-git compiz autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.10 ] ]
+require compiz
 
 SUMMARY="Emerald themes"
-DOWNLOADS=""
+DOWNLOADS="http://git.compiz.org/fusion/decorators/${PN}/snapshot/${PNV}.tar.bz2"
 
 LICENCES="GPL-2"
 SLOT="0"

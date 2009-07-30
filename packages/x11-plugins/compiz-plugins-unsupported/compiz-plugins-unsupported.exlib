@@ -24,7 +24,7 @@ DEPENDENCIES="
         dev-util/pkg-config
         sys-devel/gettext
     build+run:
-        x11-libs/compiz-bcop-[>=0.7.3]
+        x11-libs/compiz-bcop[>=0.7.3]
         x11-plugins/compiz-plugins-main
         x11-wm/compiz
 "

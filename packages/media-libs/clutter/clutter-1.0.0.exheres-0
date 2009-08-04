@@ -1,0 +1,54 @@
+# Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Distributed under the terms of the GNU General Public License v2
+
+require clutter-project
+
+SUMMARY="Library for creating fast, visually rich and animated graphical user interfaces"
+
+LICENCES="LGPL-2.1"
+SLOT="1"
+PLATFORMS="~x86"
+
+MYOPTIONS="composite doc introspection"
+# manual - needs jw
+
+DEPENDENCIES="
+    build:
+        dev-util/pkg-config
+        sys-devel/gettext
+        x11-proto/damageproto
+        x11-proto/fixesproto[>=3]
+        x11-proto/inputproto
+        x11-proto/xextproto
+        composite? ( x11-proto/compositeproto[>=0.4] )
+        doc? ( dev-doc/gtk-doc[>=1.11] )
+    build+run:
+        dev-libs/glib:2[>=2.16]
+        x11-dri/mesa
+        x11-libs/cairo[>=1.4]
+        x11-libs/gtk+:2
+        x11-libs/libX11
+        x11-libs/libXdamage
+        x11-libs/libXext
+        x11-libs/libXfixes[>=3]
+        x11-libs/libXi
+        x11-libs/pango[>=1.20]
+        composite? ( x11-libs/libXcomposite[>=0.4] )
+        introspection? ( gnome-desktop/gobject-introspection[>=0.6.3] )
+"
+
+RESTRICT="test"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=(
+    '--with-x'
+    '--with-flavour=glx'
+    '--with-imagebackend=gdk-pixbuf'
+
+    '--enable-xinput'
+)
+
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
+    'doc gtk-doc'
+    'introspection'
+)
+

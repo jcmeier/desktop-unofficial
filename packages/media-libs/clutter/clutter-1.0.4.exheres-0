@@ -34,7 +34,7 @@ DEPENDENCIES="
         x11-libs/libXi
         x11-libs/pango[>=1.20]
         composite? ( x11-libs/libXcomposite[>=0.4] )
-        gobject-introspection? ( gnome-desktop/gobject-introspection[>=0.6.3] )
+        gobject-introspection? ( gnome-desktop/gobject-introspection[>=0.6.4] )
 "
 
 RESTRICT="test"

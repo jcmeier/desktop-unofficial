@@ -22,3 +22,4 @@ DEPENDENCIES="
 ccsm_src_install() {
     distutils_src_install --prefix=/usr
 }
+

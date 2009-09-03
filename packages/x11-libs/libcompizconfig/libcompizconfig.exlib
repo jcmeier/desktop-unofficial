@@ -26,3 +26,4 @@ DEPENDENCIES="
         x11-libs/libX11
         x11-wm/compiz[>=${PV}]
 "
+

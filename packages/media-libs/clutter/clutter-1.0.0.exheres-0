@@ -9,7 +9,7 @@ LICENCES="LGPL-2.1"
 SLOT="1"
 PLATFORMS="~x86"
 
-MYOPTIONS="composite doc introspection"
+MYOPTIONS="composite doc gobject-introspection"
 # manual - needs jw
 
 DEPENDENCIES="
@@ -34,7 +34,7 @@ DEPENDENCIES="
         x11-libs/libXi
         x11-libs/pango[>=1.20]
         composite? ( x11-libs/libXcomposite[>=0.4] )
-        introspection? ( gnome-desktop/gobject-introspection[>=0.6.3] )
+        gobject-introspection? ( gnome-desktop/gobject-introspection[>=0.6.3] )
 "
 
 RESTRICT="test"
@@ -49,6 +49,6 @@ DEFAULT_SRC_CONFIGURE_PARAMS=(
 
 DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
     'doc gtk-doc'
-    'introspection'
+    'gobject-introspection introspection'
 )
 

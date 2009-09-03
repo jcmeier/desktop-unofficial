@@ -9,7 +9,7 @@ LICENCES="GPL-2"
 SLOT="0.10"
 PLATFORMS="~x86"
 
-MYOPTIONS="doc introspection"
+MYOPTIONS="doc gobject-introspection"
 DEPENDENCIES="
     build:
         dev-util/pkg-config
@@ -17,9 +17,9 @@ DEPENDENCIES="
     build+run:
         media-libs/clutter:1[>=1.0.0]
         x11-libs/gtk+:2[>=2.12.0]
-        introspection? ( gnome-desktop/gobject-introspection[>=0.6.3] )
+        gobject-introspection? ( gnome-desktop/gobject-introspection[>=0.6.3] )
 "
 
 DEFAULT_SRC_CONFIGURE_PARAMS=( '--with-flavour=x11' )
-DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( 'doc gtk-doc' 'introspection' )
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( 'doc gtk-doc' 'gobject-introspection introspection' )
 

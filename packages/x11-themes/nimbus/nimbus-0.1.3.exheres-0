@@ -1,6 +1,8 @@
 # Copyright 2009 Hong Hao <oahong@gmail.com>
 # Distributed under the terms of the GNU General Public License v2
 
+require gnome-2
+
 SUMMARY="Desktop theme for JDS"
 DESCRIPTION="
 Nimbus is a the default GNOME theme for the Solaris operating system.

@@ -6,17 +6,9 @@ export_exlib_phases src_test
 SUMMARY="A compositing window manager using OpenGL acceleration for 3D graphics"
 DESCRIPTION=""
 HOMEPAGE="http://www.compiz.org"
-DOWNLOADS="http://releases.compiz.org/core/${PV}/${PNV}.tar.gz"
-
+DOWNLOADS="http://releases.compiz.org/${PV}/${PNV}.tar.gz"
 SLOT="0"
 LICENCES="FIXME"
-
-BUGS_TO=""
-REMOTE_IDS=""
-
-UPSTREAM_CHANGELOG=""
-UPSTREAM_DOCUMENTATION=""
-UPSTREAM_RELEASE_NOTES=""
 
 MYOPTIONS="cairo dbus fuse gnome gtk svg
     cairo [[ description = [ Builds the annotate plugin (on screen drawing) ] ]]

@@ -4,11 +4,7 @@
 require compiz
 
 SUMMARY="Extra compiz plugins"
-DESCRIPTION="
-"
-
 LICENCES="GPL-2"
-MYOPTIONS="" # gnome -> schemes
 
 DEPENDENCIES="
     build:

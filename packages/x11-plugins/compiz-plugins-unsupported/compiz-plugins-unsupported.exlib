@@ -4,11 +4,7 @@
 require compiz
 
 SUMMARY="Unsupported compiz plugins"
-DESCRIPTION="
-"
-
 LICENCES="GPL-2"
-MYOPTIONS=""
 
 DEPENDENCIES="
     build:

@@ -5,7 +5,6 @@ require compiz
 
 SUMMARY="Python bindings for compizconfig"
 LCENCES="GPL-2"
-MYOPTIONS=""
 
 DEPENDENCIES="
     build:

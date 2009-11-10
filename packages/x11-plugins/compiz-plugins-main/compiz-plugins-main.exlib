@@ -4,8 +4,6 @@
 require compiz
 
 SUMMARY="Main compiz plugins"
-DESCRIPTION="
-"
 LICENCES="GPL-2"
 MYOPTIONS="
     cairo [[ description = [ Build wall plugin ] ]]

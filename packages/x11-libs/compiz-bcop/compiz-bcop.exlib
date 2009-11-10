@@ -5,7 +5,6 @@ require compiz
 
 SUMMARY="Compiz option code generator"
 LICENCES="GPL-2"
-MYOPTIONS=""
 
 DEPENDENCIES="
     build:

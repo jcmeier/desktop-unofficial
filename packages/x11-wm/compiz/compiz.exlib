@@ -8,11 +8,10 @@ DESCRIPTION=""
 HOMEPAGE="http://www.compiz.org"
 DOWNLOADS="http://releases.compiz.org/${PV}/${PNV}.tar.gz"
 SLOT="0"
-LICENCES="FIXME"
+LICENCES="GPL-2"
 
 MYOPTIONS="cairo dbus fuse gnome gtk svg
     cairo [[ description = [ Builds the annotate plugin (on screen drawing) ] ]]
-
     gtk [[ description = [ Adds support for GTK window decorations ] ]]
 "
 

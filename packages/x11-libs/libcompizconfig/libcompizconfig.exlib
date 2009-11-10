@@ -4,9 +4,7 @@
 require compiz
 
 SUMMARY="Compiz configuration system library"
-
 LICENCES="GPL-2 LGPL-2.1"
-MYOPTIONS=""
 
 DEPENDENCIES="
     build:

@@ -7,7 +7,6 @@ export_exlib_phases src_install
 
 SUMMARY="Compiz Config Settings Manager"
 LICENCES="GPL-2"
-MYOPTIONS=""
 
 DEPENDENCIES="
     build+run:

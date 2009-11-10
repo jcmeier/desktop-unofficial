@@ -5,13 +5,11 @@ require autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.10 ] ] com
 
 SUMMARY="Emerald themes"
 DOWNLOADS="http://git.compiz.org/fusion/decorators/${PN}/snapshot/${PNV}.tar.bz2"
-
 LICENCES="GPL-2"
 SLOT="0"
 PLATFORMS="~x86"
 
-MYOPTIONS=""
-
-# x11-wm/emerald?
-DEPENDENCIES=""
+DEPENDENCIES="
+    x11-wm/emerald
+"
 

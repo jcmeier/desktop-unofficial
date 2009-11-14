@@ -62,7 +62,7 @@ DEPENDENCIES="
 
 DEFAULT_SRC_CONFIGURE_PARAMS=( '--with-default-plugins' '--enable-inotify' )
 
-DEFAULT_SRC_CONFIGURE_OPTION_ENABLE=(
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
     'svg librsvg'
     'gtk'
 

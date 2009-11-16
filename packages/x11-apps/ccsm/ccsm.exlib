@@ -3,8 +3,6 @@
 
 require gnome-2 compiz distutils
 
-export_exlib_phases src_install
-
 SUMMARY="Compiz Config Settings Manager"
 LICENCES="GPL-2"
 
@@ -16,7 +14,7 @@ DEPENDENCIES="
         dev-python/compizconfig-python
 "
 
-ccsm_src_install() {
+src_install() {
     distutils_src_install --prefix=/usr
 }
 

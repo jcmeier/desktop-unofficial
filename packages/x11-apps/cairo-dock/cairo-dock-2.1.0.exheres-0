@@ -43,7 +43,8 @@ DEPENDENCIES="
         x11-plugins/cairo-dock-plugins
 "
 
-RESTRICT="test" # no tests.
+# Tests currently fail, need to be fixed ASAP
+RESTRICT="test" 
 BUGS_TO="oahong@gmail.com"
 
 DEFAULT_SRC_CONFIGURE_PARAMS=( --enable-xextend --disable-glitz )

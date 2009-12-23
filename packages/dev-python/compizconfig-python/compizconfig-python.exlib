@@ -10,7 +10,7 @@ DEPENDENCIES="
     build:
         dev-util/pkg-config
     build+run:
-        dev-lang/python[>=2.4]
+        dev-lang/python:=[>=2.4]
         dev-libs/glib:2[>=2.6]
         dev-python/Pyrex
         x11-libs/libcompizconfig[>=0.6.99]

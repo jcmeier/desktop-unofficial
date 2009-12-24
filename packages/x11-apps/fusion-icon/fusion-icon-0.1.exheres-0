@@ -11,8 +11,6 @@ LICENCES="GPL-2"
 SLOT="0"
 PLATFORMS="~x86"
 
-MYOPTIONS="gtk qt4"
-
 DEPENDENCIES="
     run:
         dev-python/compizconfig-python

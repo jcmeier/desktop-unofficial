@@ -7,11 +7,9 @@ SUMMARY="Main compiz plugins"
 LICENCES="GPL-2"
 MYOPTIONS="
     cairo [[ description = [ Build wall plugin ] ]]
-    jpeg [[ description = [ Build jpeg plugin ] ]]
     pango [[ description = [ Build text and resize plugin ] ]]
 "
 # gconf, needs compiz-gconf
-
 DEPENDENCIES="
     build:
         dev-util/intltool[>=0.35]
@@ -21,7 +19,7 @@ DEPENDENCIES="
         x11-libs/compiz-bcop[>=0.7.3]
         x11-wm/compiz
         cairo? ( x11-libs/cairo )
-        jpeg?  ( media-libs/jpeg )
+        media-libs/jpeg
         pango? (
             x11-libs/cairo
             x11-libs/pango

@@ -10,6 +10,6 @@ SLOT="0"
 PLATFORMS="~x86"
 
 DEPENDENCIES="
-    x11-wm/emerald
+    x11-decorators/emerald
 "
 

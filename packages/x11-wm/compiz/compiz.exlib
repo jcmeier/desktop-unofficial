@@ -10,8 +10,8 @@ DOWNLOADS="http://releases.compiz.org/${PV}/${PNV}.tar.gz"
 SLOT="0"
 LICENCES="GPL-2"
 
-MYOPTIONS="cairo dbus fuse gnome gtk svg
-    cairo [[ description = [ Builds the annotate plugin (on screen drawing) ] ]]
+MYOPTIONS="dbus fuse gnome gtk svg
+    annotate [[ description = [ Builds the annotate plugin (on screen drawing) ] ]]
     gtk [[ description = [ Adds support for GTK window decorations ] ]]
 "
 
@@ -39,7 +39,7 @@ DEPENDENCIES="
         x11-libs/libXrandr
         x11-libs/libXrender[>=0.9.3]
         x11-libs/startup-notification[>=0.7]
-        cairo? ( x11-libs/cairo[X] )
+        annotate? ( x11-libs/cairo[X] )
         dbus? (
             dev-libs/dbus-glib:1
             sys-apps/dbus
@@ -66,7 +66,7 @@ DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
     'svg librsvg'
     'gtk'
 
-    'cairo annotate'
+    'annotate'
 
     'dbus'
     'dbus dbus-glib'

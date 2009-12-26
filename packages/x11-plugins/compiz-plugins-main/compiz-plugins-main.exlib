@@ -1,3 +1,4 @@
+# Copyright 2009 Jan Meier <jan@codejunky.org>
 # Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
 # Distributed under the terms of the GNU General Public License v2
 
@@ -5,26 +6,20 @@ require compiz
 
 SUMMARY="Main compiz plugins"
 LICENCES="GPL-2"
-MYOPTIONS="
-    cairo [[ description = [ Build wall plugin ] ]]
-    pango [[ description = [ Build text and resize plugin ] ]]
-"
-# gconf, needs compiz-gconf
+MYOPTIONS=""
+
 DEPENDENCIES="
     build:
         dev-util/intltool[>=0.35]
         dev-util/pkg-config
         sys-devel/gettext
     build+run:
-        x11-libs/compiz-bcop[>=0.7.3]
-        x11-wm/compiz
-        cairo? ( x11-libs/cairo )
         media-libs/jpeg
-        pango? (
-            x11-libs/cairo
-            x11-libs/pango
-        )
+        x11-libs/cairo
+        x11-libs/compiz-bcop[>=0.7.3]
+        x11-libs/pango
+        x11-wm/compiz
 "
 
-DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( 'jpeg' )
+DEFAULT_SRC_CONFIGURE_PARAMS=( '--enable-jpeg' )
 

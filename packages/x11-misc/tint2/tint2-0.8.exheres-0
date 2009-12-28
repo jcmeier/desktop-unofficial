@@ -1,0 +1,10 @@
+# Copyright 2008,2009 Hong Hao <oahong@gmail.com>
+# Distributed under the terms of the GNU General Public License v2
+
+require tint2
+
+DOWNLOADS="${HOMEPAGE}/files/${PNV}.tar.gz"
+PLATFORMS="~amd64 ~x86"
+
+DEFAULT_SRC_CONFIGURE_PARAMS=( --disable-tint2conf )
+

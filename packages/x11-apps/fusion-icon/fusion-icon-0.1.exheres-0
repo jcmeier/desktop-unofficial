@@ -16,6 +16,9 @@ DEPENDENCIES="
         dev-python/compizconfig-python
         x11-apps/xvinfo
         x11-wm/compiz
+
+    suggestion:
+        gnome-bindings/sexy-python
 "
 
 pkg_postinst() {

@@ -8,7 +8,12 @@ PLATFORMS="~amd64 ~x86"
 MYOPTIONS="gtk [[ description = [ Build GTK+-2 theme switcher for ${PN} ] ]]"
 
 DEPENDENCIES="
+    built-against:
+        x11-proto/damageproto
+        x11-proto/compositeproto
     build+run:
+        x11-libs/libXdamage
+        x11-libs/libXcomposite
         gtk? (
           x11-libs/gtk+:2
           gnome-bindings/pygtk:2

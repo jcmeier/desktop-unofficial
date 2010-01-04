@@ -14,7 +14,7 @@ DEPENDENCIES="
         dev-python/compizconfig-python
 "
 
-src_install() {
-    distutils_src_install --prefix=/usr
-}
+DISTUTILS_SRC_INSTALL_PARAMS=(
+    --prefix=/usr
+)
 

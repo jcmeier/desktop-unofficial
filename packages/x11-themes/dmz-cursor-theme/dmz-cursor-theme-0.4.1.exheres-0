@@ -1,0 +1,21 @@
+# Copyright 2010 Hong Hao <oahong@gmail.com>
+# Distributed under the terms of the GNU General Public License v2
+
+require debian-upstream
+
+SUMMARY="Style neutral, scalable cursor theme"
+HOMEPAGE="http://jimmac.musichall.cz/themes.php?skin=7"
+
+LICENCES="MIT"
+SLOT="0"
+PLATFORMS="~x86"
+MYOPTIONS=""
+
+DEPENDENCIES=""
+
+BUGS_TO="oahong@gmail.com"
+
+src_install() {
+    insinto /usr/share/icons
+    doins -r DMZ-*
+}

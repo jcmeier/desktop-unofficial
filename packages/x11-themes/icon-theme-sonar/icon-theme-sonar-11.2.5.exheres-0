@@ -1,0 +1,21 @@
+# Copyright 2009 Hong Hao <oahong@gmail.com>
+# Distributed under the terms of the GNU General Public License v2
+
+require gnome-2
+
+SUMMARY="Sonar icon theme, the default icon theme for GNOME in openSUSE 11.2"
+HOMEPAGE="http://www.opensuse.org"
+DOWNLOADS="http://forgeftp.novell.com/opensuse-art/openSUSE11.2/metatheme/${PNV}.tar.bz2"
+
+LICENCES="LGPL-3"
+SLOT="0"
+PLATFORMS="~x86"
+MYOPTIONS=""
+
+DEPENDENCIES="
+    build:
+        dev-util/pkg-config
+        x11-apps/icon-naming-utils[>=0.8.7]
+"
+
+BUGS_TO="oahong@gmail.com"

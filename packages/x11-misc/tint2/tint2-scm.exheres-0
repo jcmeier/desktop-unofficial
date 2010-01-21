@@ -2,23 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 SCM_REPOSITORY="http://tint2.googlecode.com/svn"
-require tint2 scm-svn autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.10 ] ]
+require tint2 scm-svn autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.11 ] ]
 
 PLATFORMS="~amd64 ~x86"
-MYOPTIONS="gtk [[ description = [ Build GTK+-2 theme switcher for ${PN} ] ]]"
-
-DEPENDENCIES="
-    built-against:
-        x11-proto/damageproto
-        x11-proto/compositeproto
-    build+run:
-        x11-libs/libXdamage
-        x11-libs/libXcomposite
-        gtk? (
-          x11-libs/gtk+:2
-          gnome-bindings/pygtk:2
-        )
-"
-
-DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( 'gtk tint2conf' )
 

@@ -8,10 +8,13 @@ HOMEPAGE="http://tint2.googlecode.com"
 
 LICENCES="GPL-2"
 SLOT="0"
+MYOPTIONS="gtk [[ description = [ Build GTK+-2 theme switcher for ${PN} ] ]]"
 
 DEPENDENCIES="
     build:
         dev-util/pkg-config
+        x11-proto/compositeproto
+        x11-proto/damageproto
         x11-proto/xineramaproto
         x11-proto/xproto
     build+run:
@@ -19,9 +22,20 @@ DEPENDENCIES="
         media-libs/imlib2[X]
         x11-libs/cairo[X]
         x11-libs/libX11
+        x11-libs/libXcomposite
+        x11-libs/libXdamage
         x11-libs/libXinerama
         x11-libs/pango
+        gtk? (
+          x11-libs/gtk+:2
+          gnome-bindings/pygtk:2
+        )
 "
 
+BUGS_TO="oahong@gmail.com"
+UPSTREAM_CHANGELOG="http://code.google.com/p/tint2/source/browse/trunk/ChangeLog"
+UPSTREAM_DOCUMENTATION="http://code.google.com/p/tint2/wiki/Welcome?tm=6"
+
 DEFAULT_SRC_CONFIGURE_PARAMS=( --enable-battery --enable-examples )
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( 'gtk tint2conf' )
 

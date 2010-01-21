@@ -6,5 +6,3 @@ require tint2
 DOWNLOADS="${HOMEPAGE}/files/${PNV}.tar.gz"
 PLATFORMS="~amd64 ~x86"
 
-DEFAULT_SRC_CONFIGURE_PARAMS=( --disable-tint2conf )
-

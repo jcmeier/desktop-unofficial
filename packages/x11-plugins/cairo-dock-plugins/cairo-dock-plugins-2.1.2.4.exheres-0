@@ -14,7 +14,7 @@ MYOPTIONS=""
 
 DEPENDENCIES="
     run:
-        x11-apps/cairo-dock
+        x11-apps/cairo-dock[=${PV}]
 "
 
 BUGS_TO="jan@codejunky.org"

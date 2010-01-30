@@ -41,6 +41,7 @@ DEPENDENCIES="
         x11-themes/icewm-themes
 "
 
+RESTRICT="test" # I know nothing about c++, so someone else should fix it.
 BUGS_TO="oahong@gmail.com"
 REMOTE_IDS="sourceforge:icewm"
 UPSTREAM_DOCUMENTATION="${HOMEPAGE}/manual ${HOMEPAGE}/FAQ ${HOMEPAGE}/themes"

@@ -14,18 +14,34 @@ DOWNLOADS="mirror://sourceforge/${PN}/${PNV}.tar.bz2"
 LICENCES="GPL-2"
 SLOT="0"
 PLATFORMS="~x86"
-MYOPTIONS=""
+MYOPTIONS="debug"
 
 DEPENDENCIES="
+    build:
+        x11-proto/xproto
     build+run:
         x11-libs/libX11
-        x11-libs/libXpm"
+        x11-libs/libXpm
+    run:
+        debug? ( || ( x11-apps/xprop x11-apps/xwininfo ) )
+"
 
 BUGS_TO="oahong@gmail.com"
 REMOTE_IDS="sourceforge:stalonetray freshmeat:stalonetray"
-UPSTREAM_CHANGELOG="${HOMEPAGE}/news.html"
+UPSTREAM_RELEASE_NOTES="${HOMEPAGE}/news.html"
+
+DEFAULT_SRC_PREPARE_PATCHES=( "${FILES}"/${PN}-r555-fix-nodebug-build.patch )
+DEFAULT_SRC_CONFIGURE_PARAMS=(
+    --enable-native-kde
+)
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
+    debug 'debug events-trace'
+    'debug embedding-confirmation-delay'
+    'debug dump-win-info'
+)
 
 src_install() {
     default
     dodoc stalonetrayrc.sample
 }
+

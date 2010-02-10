@@ -1,0 +1,30 @@
+Source: Upstream r555
+Upstream: Yes ^^^ -> http://stalonetray.svn.sourceforge.net/viewvc/stalonetray/stalonetray/trunk/stalonetray/src/main.c?r1=553&r2=555
+Reason: Fix no debug build
+--- stalonetray/src/main.c	2009/10/21 16:16:35	553
++++ stalonetray/src/main.c	2009/10/23 09:54:51	555
+@@ -323,9 +323,13 @@
+ #endif
+ 	/* React on WM (re)starts */
+ 	if (ev.atom == XInternAtom(tray_data.dpy, _NET_SUPPORTING_WM_CHECK, False)) {
++#ifdef DEBUG
+ 		ewmh_list_supported_atoms(tray_data.dpy);
++#endif
+ 		tray_set_wm_hints();
++#ifndef NO_NATIVE_KDE
+ 		kde_tray_update_fallback_mode(tray_data.dpy);
++#endif
+ 	}
+ 	/* React on _XEMBED_INFO changes of embedded icons
+ 	 * (currently used to track icon visibility status) */
+--- stalonetray-0.8.0/src/embed.c.orig	2010-02-09 23:34:50.215166127 +0800
++++ stalonetray-0.8.0/src/embed.c	2010-02-09 23:35:00.221441282 +0800
+@@ -53,7 +53,7 @@
+ 				STALONE_TRAY_DOCK_CONFIRMED, 
+ 				ti->wid, 0, 0);
+ 		XSync(dpy, False);
+-		XClose(dpy);
++		XCloseDisplay(dpy);
+ 	} else {
+ 		DIE_IE(("failed to initialize display\n"));
+ 	}

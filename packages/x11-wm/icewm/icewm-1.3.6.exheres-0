@@ -70,7 +70,7 @@ src_install() {
     hereins icewm-session <<EOF
 /usr/bin/icewm-session
 EOF
-    fperms a+x /etc/X11/Sessions/icewm-session
+    edo chmod a+x "${IMAGE}"/etc/X11/Sessions/icewm-session
     insinto /usr/share/xsessions
     doins lib/icewm-session.desktop
 }

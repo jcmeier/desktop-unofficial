@@ -113,6 +113,6 @@ EOF
     hereins fvwm <<EOF
 /usr/bin/fvwm2
 EOF
-    fperms 755 /etc/X11/Sessions/fvwm
+    edo chmod 755 "${IMAGE}"/etc/X11/Sessions/fvwm
 }
 

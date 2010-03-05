@@ -1,0 +1,201 @@
+# Copyright 2009 Hong Hao <oahong@gmail.com>
+# Copyright 2010 Cecil Curry <leycec@gmail.com>
+# Distributed under the terms of the GNU General Public License v2
+# Based in part upon 'fvwm-2.5.26.ebuild', which is
+#    Copyright 1999-2009 Gentoo Foundation
+# $Header: /var/cvsroot/gentoo-x86/x11-wm/fvwm/fvwm-2.5.26.ebuild,v 1.2 2009/01/09 15:06:36 remi Exp $
+
+require flag-o-matic
+
+SUMMARY="FVWM is an ICCCM-compliant multiple desktop window manager for X11."
+DESCRIPTION="
+FVWM (F? Virtual Window Manager) is an X11 window manager designed to minimize
+memory consumption; customize window, icon, and desktop appearance; and provide
+multiple virtual desktops.
+"
+
+HOMEPAGE="http://www.fvwm.org"
+LICENCES="GPL-2"
+FVWMICONS="fvwm_icons-20070101"
+DOWNLOADS="listed-only: (
+    ftp://ftp.fvwm.org/pub/fvwm/version-$(ever major)/${PNV}.tar.bz2
+    extra? (
+        ${HOMEPAGE}/generated/icon_download/${FVWMICONS}.tar.bz2
+        ${HOMEPAGE}/generated/sounds_download/fvwm_sounds.tgz
+    )
+)"
+
+BUGS_TO="oahong@gmail.com"
+REMOTE_IDS="freshmeat:FVWM"
+UPSTREAM_RELEASE_NOTES="${HOMEPAGE}/news/#${PV}"
+UPSTREAM_DOCUMENTATION="${HOMEPAGE}/documentation/faq"
+
+SLOT="0"
+PLATFORMS="~alpha amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+MYOPTIONS="bidi debug doc nls perl png readline rplay svg truetype xinerama
+    tk     [[ requires = perl ]]
+    extra  [[ description = [ Install optional mini-icons and sound files ] ]]
+    stroke [[ description = [ Bind mouse motions to user-defined actions ] ]]
+    platform:
+        ppc"
+
+DEPENDENCIES="
+    build:
+        dev-util/pkg-config
+        x11-proto/renderproto
+        x11-proto/xextproto
+        x11-proto/xproto
+        doc?      ( dev-libs/libxslt )
+        nls?      ( sys-devel/gettext )
+        readline? (
+            sys-libs/ncurses
+            sys-libs/readline
+	    )
+        xinerama? ( x11-proto/xineramaproto )
+    build+run:
+        media-libs/fontconfig[>=1.0.1]
+        media-libs/freetype:2[>=2.0.6]
+        x11-libs/cairo[svg(+)?]
+        x11-libs/libICE
+        x11-libs/libSM
+        x11-libs/libX11
+        x11-libs/libXcursor
+        x11-libs/libXext
+        x11-libs/libXpm[>=3.4]
+        x11-libs/libXrender
+        bidi?     ( dev-libs/fribidi[>=0.10.4] )
+        perl?     ( dev-lang/perl:=[>=5.004]
+            tk? (
+                dev-lang/tk
+                dev-perl/perl-tk
+                dev-perl/X11-Protocol[>=0.56]
+            )
+        )
+        png?      ( media-libs/libpng[>=1.0.4] )
+        rplay?    ( media-sound/rplay )
+        stroke?   ( dev-libs/libstroke[>=0.5.1] )
+        svg?      ( gnome-desktop/librsvg[>=2.13.92] )
+        truetype? ( x11-libs/libXft )
+        xinerama? ( x11-libs/libXinerama )
+"
+
+SRC_CONFIGURE_PARAMS=(
+    # Create subdirectories for modules and data.
+    --enable-package-subdir
+    # Set a default imagepath. (This is overrideable at runtime.) 
+    --with-imagepath="/usr/share/icons/fvwm:/usr/share/pixmaps:/usr/include/X11/bitmaps"
+    # Disable support for GTK-1 and GNOME.
+    --disable-gtk
+    --without-gnome
+)
+SRC_CONFIGURE_OPTION_ENABLES=(
+    bidi
+    'debug debug-msgs'
+    'debug command-log'
+    'doc htmldoc'
+    'doc mandoc'
+    'nls'
+    'nls iconv'
+    'perl perllib'
+    'svg rsvg'
+    xinerama
+)
+SRC_CONFIGURE_OPTION_WITHS=(
+    'png png-library'
+    'readline readline-library'
+    'rplay rplay-library'
+    'stroke stroke-library'
+)
+
+pkg_setup() {
+    export FVWM_BUGADDR=${BUGS_TO}
+
+    # ???
+    filter-ldflags '-Wl,--as-needed'
+
+    # All builds disable strict aliasing, as recommended by upstream.
+    append-flags -fno-strict-aliasing
+
+    # PPC builds require signed characters.
+    option platform:ppc && append-flags -fsigned-char
+}
+
+#FIXME leycec: We'd rather not override this function. However, exheres-0 has no
+#mechanism for selectively disabling configuration options: e.g.,
+#   'readline -termcap-library' in the DEFAULT_SRC_CONFIGURE_OPTION_WITHS array.
+src_configure() {
+    option readline && SRC_CONFIGURE_PARAMS+=( --without-termcap-library )
+    econf \
+        "${SRC_CONFIGURE_PARAMS[@]}" \
+        $(for s in "${SRC_CONFIGURE_OPTION_ENABLES[@]}"; do \
+            option_enable ${s}; \
+        done) \
+        $(for s in "${SRC_CONFIGURE_OPTION_WITHS[@]}"; do \
+            option_with ${s}; \
+        done)
+}
+
+src_install() {
+    default
+
+    # Delete perl-related files and paths, as needed.
+    if option perl; then
+        # Selectively remove all "perl-tk" and "perl-gtk2" modules, as this
+        # exheres does not yet support those options.
+        edo rm -f "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/Tk.pm" \
+                  "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/Toolkit.pm" \
+                  "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/Gtk2.pm"
+    else
+        edo rm -rf "${IMAGE}/usr/bin/fvwm-perllib" \
+                   "${IMAGE}/usr/share/man/man1/fvwm-perllib.1"
+    fi
+
+    # Delete:
+    #
+    # * All empty directories.
+    # * The "fvwm-convert-2.6" binary. It contains no code.
+    # 
+    # Perform this deletion after all other deletion, above, so as to ensure
+    # empty directories are indeed deleted.
+    edo find "${IMAGE}" \
+        -type d -empty -delete ,\
+        -name '*convert-2.6*' -delete ,\
+        -name '*FvwmGtkDebug*' -delete
+
+    # Install extra icons and audio, if desired.
+    if option extra; then
+        insinto /usr/share/icons/${PN}
+        doins "${WORKBASE}"/${FVWMICONS}/*
+        insinto /usr/share/sounds/${PN}
+        doins "${WORKBASE}"/*.au
+    fi
+
+    # Install the "hints_test" binary, if debugging.
+    if option debug; then
+        dobin  "${WORK}/tests/hints/hints_test"
+        newdoc "${WORK}/tests/hints/README" README.hints_test
+    fi
+
+    # Create "/usr/share/xsessions/fvwm.desktop" from scratch.
+    insinto /usr/share/xsessions
+    hereins fvwm.desktop <<EOF
+[Desktop Entry]
+Encoding=UTF-8
+Name=Fvwm
+Comment=Fvwm
+Exec=fvwm2
+Terminal=False
+TryExec=fvwm2
+Type=Application
+
+[Window Manager]
+SessionManaged=true
+EOF
+
+    # Create "/etc/X11/Sessions/fvwm" from scratch.
+    insinto /etc/X11/Sessions
+    insopts -m755
+    hereins fvwm <<EOF
+/usr/bin/fvwm
+EOF
+}

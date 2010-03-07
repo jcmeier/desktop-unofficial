@@ -31,7 +31,7 @@ UPSTREAM_RELEASE_NOTES="${HOMEPAGE}/news/#${PV}"
 UPSTREAM_DOCUMENTATION="${HOMEPAGE}/documentation/faq"
 
 SLOT="0"
-PLATFORMS="~alpha amd64 ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+PLATFORMS="~amd64 ~x86"
 MYOPTIONS="bidi debug doc nls perl png readline rplay svg truetype xinerama
     tk     [[ requires = perl ]]
     extra  [[ description = [ Install optional mini-icons and sound files ] ]]

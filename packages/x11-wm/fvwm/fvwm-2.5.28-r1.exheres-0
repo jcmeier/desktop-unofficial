@@ -35,9 +35,7 @@ PLATFORMS="~amd64 ~x86"
 MYOPTIONS="bidi debug doc nls perl png readline rplay svg truetype xinerama
     tk     [[ requires = perl ]]
     extra  [[ description = [ Install optional mini-icons and sound files ] ]]
-    stroke [[ description = [ Bind mouse motions to user-defined actions ] ]]
-    platform:
-        ppc"
+    stroke [[ description = [ Bind mouse motions to user-defined actions ] ]]"
 
 DEPENDENCIES="
     build:
@@ -115,9 +113,6 @@ pkg_setup() {
 
     # All builds disable strict aliasing, as recommended by upstream.
     append-flags -fno-strict-aliasing
-
-    # PPC builds require signed characters.
-    option platform:ppc && append-flags -fsigned-char
 }
 
 #FIXME leycec: We'd rather not override this function. However, exheres-0 has no

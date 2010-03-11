@@ -77,7 +77,7 @@ DEPENDENCIES="
         xinerama? ( x11-libs/libXinerama )
 "
 
-SRC_CONFIGURE_PARAMS=(
+DEFAULT_SRC_CONFIGURE_PARAMS=(
     # Create subdirectories for modules and data.
     --enable-package-subdir
     # Set a default imagepath. (This is overrideable at runtime.) 
@@ -86,7 +86,7 @@ SRC_CONFIGURE_PARAMS=(
     --disable-gtk
     --without-gnome
 )
-SRC_CONFIGURE_OPTION_ENABLES=(
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
     bidi
     'debug debug-msgs'
     'debug command-log'
@@ -98,9 +98,10 @@ SRC_CONFIGURE_OPTION_ENABLES=(
     'svg rsvg'
     xinerama
 )
-SRC_CONFIGURE_OPTION_WITHS=(
+DEFAULT_SRC_CONFIGURE_OPTION_WITHS=(
     'png png-library'
     'readline readline-library'
+    '!readline termcap-library'
     'rplay rplay-library'
     'stroke stroke-library'
 )
@@ -112,22 +113,8 @@ pkg_setup() {
     filter-ldflags '-Wl,--as-needed'
 
     # All builds disable strict aliasing, as recommended by upstream.
+    # See: http://www.mail-archive.com/fvwm-workers@fvwm.org/msg02019.html
     append-flags -fno-strict-aliasing
-}
-
-#FIXME leycec: We'd rather not override this function. However, exheres-0 has no
-#mechanism for selectively disabling configuration options: e.g.,
-#   'readline -termcap-library' in the DEFAULT_SRC_CONFIGURE_OPTION_WITHS array.
-src_configure() {
-    option readline && SRC_CONFIGURE_PARAMS+=( --without-termcap-library )
-    econf \
-        "${SRC_CONFIGURE_PARAMS[@]}" \
-        $(for s in "${SRC_CONFIGURE_OPTION_ENABLES[@]}"; do \
-            option_enable ${s}; \
-        done) \
-        $(for s in "${SRC_CONFIGURE_OPTION_WITHS[@]}"; do \
-            option_with ${s}; \
-        done)
 }
 
 src_install() {

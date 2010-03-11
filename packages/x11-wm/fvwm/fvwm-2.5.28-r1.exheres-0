@@ -5,8 +5,6 @@
 #    Copyright 1999-2009 Gentoo Foundation
 # $Header: /var/cvsroot/gentoo-x86/x11-wm/fvwm/fvwm-2.5.26.ebuild,v 1.2 2009/01/09 15:06:36 remi Exp $
 
-require flag-o-matic
-
 SUMMARY="FVWM is an ICCCM-compliant multiple desktop window manager for X11."
 DESCRIPTION="
 FVWM (F? Virtual Window Manager) is an X11 window manager designed to minimize
@@ -105,17 +103,6 @@ DEFAULT_SRC_CONFIGURE_OPTION_WITHS=(
     'rplay rplay-library'
     'stroke stroke-library'
 )
-
-pkg_setup() {
-    export FVWM_BUGADDR=${BUGS_TO}
-
-    # ???
-    filter-ldflags '-Wl,--as-needed'
-
-    # All builds disable strict aliasing, as recommended by upstream.
-    # See: http://www.mail-archive.com/fvwm-workers@fvwm.org/msg02019.html
-    append-flags -fno-strict-aliasing
-}
 
 src_install() {
     default

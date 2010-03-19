@@ -11,7 +11,7 @@ with hardware acceleration.
 It's fully configurable and customisable and can be a taskbar too.
 You can easily plug applets into it or in a desklet mode.
 "
-HOMEPAGE="http://www.cairo-dock.org"
+HOMEPAGE="http://www.glx-dock.org https://launchpad.net/cairo-dock-core"
 
 LICENCES="GPL-2 GPL-3"
 SLOT="0"

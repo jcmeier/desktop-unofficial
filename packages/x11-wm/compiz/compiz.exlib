@@ -1,7 +1,7 @@
 # Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
 # Distributed under the terms of the GNU General Public License v2
 
-export_exlib_phases src_test
+export_exlib_phases src_test pkg_postinst
 
 SUMMARY="A compositing window manager using OpenGL acceleration for 3D graphics"
 DESCRIPTION=""
@@ -13,6 +13,7 @@ LICENCES="GPL-2"
 MYOPTIONS="dbus fuse gnome gtk svg
     annotate [[ description = [ Builds the annotate plugin (on screen drawing) ] ]]
     gtk [[ description = [ Adds support for GTK window decorations ] ]]
+    kde [[ description = [ Adds support for KDE4 window decorations ] ]]
 "
 
 DEPENDENCIES="
@@ -50,6 +51,9 @@ DEPENDENCIES="
               x11-libs/gtk+:2[>=2.8]
               x11-libs/pango
         )
+        kde? (
+            kde/kdelibs:4
+        )
         svg? (
             gnome-desktop/librsvg:2[>=2.14]
             x11-libs/cairo[>=1.0]
@@ -75,6 +79,8 @@ DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
 
     'gnome gconf'
     'gnome glib'
+
+    'kde kde4'
 )
 
 compiz_src_test() {
@@ -84,5 +90,12 @@ metadata/core.xml.in
 EOF
 
     default
+}
+
+compiz_pkg_postinst() {
+    if ever at_least 0.8.6; then
+        elog "The Compiz API ha changed since the last version!"
+        elog "Please reinstall libcompizconfig and all plugins!"
+    fi
 }
 

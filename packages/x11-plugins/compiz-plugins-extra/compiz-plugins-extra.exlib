@@ -1,19 +1,24 @@
 # Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
 # Distributed under the terms of the GNU General Public License v2
 
-require compiz
+require compiz cmake
 
 SUMMARY="Extra compiz plugins"
 LICENCES="GPL-2"
+MYOPTIONS="libnotify"
 
 DEPENDENCIES="
     build:
         dev-util/intltool[>=0.35]
-        dev-util/pkg-config
         sys-devel/gettext
     build+run:
-        x11-libs/compiz-bcop[>=0.7.3]
+        x11-libs/cairo
         x11-plugins/compiz-plugins-main
         x11-wm/compiz
+        libnotify? ( x11-libs/libnotify )
 "
+
+CMAKE_SRC_CONFIGURE_OPTIONS=(
+    '!libnotify COMPIZ_DISABLE_PLUGIN_NOTIFICATION'
+)
 

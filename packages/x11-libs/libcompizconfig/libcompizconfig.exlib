@@ -1,18 +1,19 @@
 # Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
 # Distributed under the terms of the GNU General Public License v2
 
-require compiz
+require compiz cmake
 
 SUMMARY="Compiz configuration system library"
 LICENCES="GPL-2 LGPL-2.1"
 
 DEPENDENCIES="
     build:
+        dev-libs/libxslt
         dev-util/intltool[>=0.35.0]
-        dev-util/pkg-config
         sys-devel/gettext
     build+run:
         dev-libs/libxml2
+        dev-libs/protobuf
         x11-libs/libX11
         x11-wm/compiz[>=${PV}]
 "

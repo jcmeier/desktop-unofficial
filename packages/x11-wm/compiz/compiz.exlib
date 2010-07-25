@@ -1,7 +1,9 @@
 # Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
 # Distributed under the terms of the GNU General Public License v2
 
-export_exlib_phases src_test pkg_postinst
+require cmake
+
+export_exlib_phases src_install pkg_postinst
 
 SUMMARY="A compositing window manager using OpenGL acceleration for 3D graphics"
 DESCRIPTION=""
@@ -10,17 +12,21 @@ DOWNLOADS="http://releases.compiz.org/${PV}/${PNV}.tar.gz"
 SLOT="0"
 LICENCES="GPL-2"
 
-MYOPTIONS="dbus fuse gnome gtk svg
-    annotate [[ description = [ Builds the annotate plugin (on screen drawing) ] ]]
+MYOPTIONS="dbus svg gconf
+    gnome [[ requires = gtk ]]
+
     gtk [[ description = [ Adds support for GTK window decorations ] ]]
     kde [[ description = [ Adds support for KDE4 window decorations ] ]]
 "
+
+# TODO: more options?
+# dev-libs/glib:2 -> glib ( BUILD_COMPIZ_GLIB )
+# x11-libs/cairo -> annotate ( BUILD_COMPIZ_ANNOTATE )
 
 DEPENDENCIES="
     build:
         dev-libs/libxslt
         dev-util/intltool[>=0.23]
-        dev-util/pkg-config
         sys-devel/gettext
         x11-proto/compositeproto
         x11-proto/damageproto
@@ -29,73 +35,76 @@ DEPENDENCIES="
         x11-proto/renderproto
         x11-proto/xineramaproto
     build+run:
+        dev-libs/glib:2
         dev-libs/libxml2
         media-libs/libpng
+        x11-dri/mesa
+        x11-libs/cairo
         x11-libs/libICE
         x11-libs/libSM
+        x11-libs/libX11[xcb]
         x11-libs/libXcomposite
         x11-libs/libXdamage
-        x11-libs/libXfixes
+        x11-libs/libXext
         x11-libs/libXinerama
         x11-libs/libXrandr
         x11-libs/libXrender[>=0.9.3]
         x11-libs/startup-notification[>=0.7]
-        annotate? ( x11-libs/cairo[X] )
         dbus? (
-            dev-libs/dbus-glib:1
             sys-apps/dbus
         )
-        fuse? ( sys-fs/fuse )
         gtk? (
               gnome-desktop/libwnck:1
               x11-libs/gtk+:2[>=2.8]
               x11-libs/pango
         )
         kde? (
-            kde/kdelibs:4
+            kde/kdelibs:4[>=4.3.0]
         )
         svg? (
             gnome-desktop/librsvg:2[>=2.14]
             x11-libs/cairo[>=1.0]
         )
-        gnome? (
+        gconf? (
             gnome-platform/GConf:2
-            dev-libs/glib:2
+        )
+        gnome? (
+            gnome-desktop/metacity
+            gnome-desktop/gnome-desktop:2
+            gnome-desktop/gnome-control-center
         )
 "
 
-DEFAULT_SRC_CONFIGURE_PARAMS=( '--with-default-plugins' '--enable-inotify' )
+CMAKE_SRC_CONFIGURE_OPTION_BUILDS=(
+    'gnome GNOME'
+    'gnome GNOME_KEYBINDINGS'
+    'gnome METACITY'
 
-DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
-    'svg librsvg'
     'gtk'
 
-    'annotate'
-
-    'dbus'
-    'dbus dbus-glib'
-
-    'fuse'
-
-    'gnome gconf'
-    'gnome glib'
-
-    'kde kde4'
+    'kde KDE4'
 )
 
-compiz_src_test() {
-    cat <<- EOF > "${WORK}/po/POTFILES.skip"
-gtk/gnome/compiz-wm.desktop.in
-metadata/core.xml.in
-EOF
+CMAKE_SRC_CONFIGURE_OPTIONS=(
+    '!dbus COMPIZ_DISABLE_PLUGIN_DBUS'
+    '!gnome COMPIZ_DISABLE_PLUGIN_GNOMECOMPAT'
+    '!kde COMPIZ_DISABLE_PLUGIN_KDE'
+    '!svg COMPIZ_DISABLE_PLUGIN_IMGSVG'
 
-    default
+    'gconf USE_GCONF'
+)
+
+compiz_src_install() {
+    cmake_src_install
+
+    # the install target doesn't respect CMAKE_INSTALL_PREFIX
+    insinto /usr/share/cmake/Modules
+    doins cmake/FindCompiz.cmake
 }
 
 compiz_pkg_postinst() {
-    if ever at_least 0.8.6; then
-        elog "The Compiz API ha changed since the last version!"
+    if ever at_least 0.9.0; then
+        elog "The Compiz API has changed since the last version!"
         elog "Please reinstall libcompizconfig and all plugins!"
     fi
 }
-

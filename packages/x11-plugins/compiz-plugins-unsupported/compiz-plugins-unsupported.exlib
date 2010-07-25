@@ -1,7 +1,7 @@
 # Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
 # Distributed under the terms of the GNU General Public License v2
 
-require compiz
+require compiz cmake
 
 SUMMARY="Unsupported compiz plugins"
 LICENCES="GPL-2"
@@ -9,10 +9,8 @@ LICENCES="GPL-2"
 DEPENDENCIES="
     build:
         dev-util/intltool[>=0.35]
-        dev-util/pkg-config
         sys-devel/gettext
     build+run:
-        x11-libs/compiz-bcop[>=0.7.3]
         x11-plugins/compiz-plugins-main
         x11-wm/compiz
 "

@@ -4,5 +4,5 @@
 require libcompizconfig
 
 SLOT="0"
-PLATFORMS="~x86"
+PLATFORMS="~x86 ~amd64"
 

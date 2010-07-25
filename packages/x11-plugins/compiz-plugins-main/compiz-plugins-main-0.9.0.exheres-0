@@ -4,5 +4,5 @@
 require compiz-plugins-main
 
 SLOT="0"
-PLATFORMS="~x86"
+PLATFORMS="~x86 ~amd64"
 

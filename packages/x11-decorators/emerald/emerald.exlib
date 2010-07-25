@@ -24,4 +24,5 @@ DEPENDENCIES="
 "
 
 DEFAULT_SRC_CONFIGURE_PARAMS=( '--disable-mime-update' )
+DEFAULT_SRC_PREPARE_PATCHES=( "${FILES}/gtk+-2.20-build.patch" "${FILES}/fix-libdecoration-changes.patch" )
 

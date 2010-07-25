@@ -1,0 +1,36 @@
+From 81775d407f775bad1e6f6ba3345b891b66bb5faf Mon Sep 17 00:00:00 2001
+From: Sam Spilsbury <smspillaz@gmail.com>
+Date: Fri, 12 Feb 2010 04:08:44 +0000
+Subject: Adjust for libdecoration changes
+
+This works, however it is LEGACY and is NOT SUPPORTED. The code is approaching FOUR YEARS OLD and it HASNT BEEN TOUCHED.
+
+This will be available for those who want it however it is NOT part of the official 0.9 development.
+
+FIXME: Replace this kerbungle entirely
+---
+diff --git a/src/main.c b/src/main.c
+index 5acfe03..4ca64c1 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -5512,7 +5512,7 @@ int main(int argc, char *argv[])
+     gdkdisplay = gdk_display_get_default();
+     xdisplay = gdk_x11_display_get_xdisplay(gdkdisplay);
+ 
+-    frame_window_atom = XInternAtom(xdisplay, "_NET_FRAME_WINDOW", FALSE);
++    frame_window_atom = XInternAtom(xdisplay, DECOR_INPUT_FRAME_ATOM_NAME, FALSE);
+     win_decor_atom = XInternAtom(xdisplay, DECOR_WINDOW_ATOM_NAME, FALSE);
+     win_blur_decor_atom = XInternAtom (xdisplay, DECOR_BLUR_ATOM_NAME, FALSE);
+     wm_move_resize_atom = XInternAtom(xdisplay, "_NET_WM_MOVERESIZE", FALSE);
+@@ -5617,7 +5617,8 @@ int main(int argc, char *argv[])
+     update_window_extents(ws);
+     update_shadow(pfs);
+ 
+-    decor_set_dm_check_hint(xdisplay, DefaultScreen(xdisplay));
++    decor_set_dm_check_hint(xdisplay, DefaultScreen(xdisplay),
++    			    WINDOW_DECORATION_TYPE_PIXMAP);
+ 
+     update_settings(ws);
+ 
+--
+cgit v0.8.3.1-30-gff3a

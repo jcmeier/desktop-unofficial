@@ -3,19 +3,19 @@
 # Based in part upon 'tint2-9999.ebuild' from gentoo china overlay, which is:
 #     Copyright 1999-2009 Gentoo Foundation
 
+require cmake
+
 SUMMARY="A simple panel/taskbar intentionally made for openbox3"
 HOMEPAGE="http://tint2.googlecode.com"
 
 LICENCES="GPL-2"
 SLOT="0"
-MYOPTIONS="gtk [[ description = [ Build GTK+-2 theme switcher for ${PN} ] ]]"
+MYOPTIONS="
+    gtk [[ description = [ Build tint2conf, a GTK+-2 theme switcher for ${PN} ] ]]
+"
 
 DEPENDENCIES="
     build:
-        dev-util/pkg-config
-        x11-proto/compositeproto
-        x11-proto/damageproto
-        x11-proto/xineramaproto
         x11-proto/xproto
     build+run:
         dev-libs/glib:2
@@ -25,17 +25,25 @@ DEPENDENCIES="
         x11-libs/libXcomposite
         x11-libs/libXdamage
         x11-libs/libXinerama
+        x11-libs/libXrandr
+        x11-libs/libXrender
         x11-libs/pango
         gtk? (
           x11-libs/gtk+:2
           gnome-bindings/pygtk:2
         )
+    recommendation:
+        gnome-desktop/librsvg
 "
 
 BUGS_TO="oahong@gmail.com"
 UPSTREAM_CHANGELOG="http://code.google.com/p/tint2/source/browse/trunk/ChangeLog"
 UPSTREAM_DOCUMENTATION="http://code.google.com/p/tint2/wiki/Welcome?tm=6"
 
-DEFAULT_SRC_CONFIGURE_PARAMS=( --enable-battery --enable-examples )
-DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( 'gtk tint2conf' )
+CMAKE_SRC_CONFIGURE_PARAMS=(
+    -DENABLE_BATTERY:BOOL=TRUE
+    -DENABLE_EXAMPLES:BOOL=TRUE
+    -DDOCDIR:PATH="/usr/share/doc/${PNVR}"
+)
+CMAKE_SRC_CONFIGURE_OPTION_ENABLES=( 'gtk TINT2CONF' )
 

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 SCM_REPOSITORY="http://tint2.googlecode.com/svn"
-require tint2 scm-svn autotools [ supported_autoconf=[ 2.5 ] supported_automake=[ 1.11 ] ]
+require tint2 scm-svn
 
 PLATFORMS="~amd64 ~x86"
 

@@ -80,7 +80,7 @@ CMAKE_SRC_CONFIGURE_OPTION_BUILDS=(
     'gnome GNOME_KEYBINDINGS'
     'gnome METACITY'
 
-    'gtk'
+    'gtk GTK'
 
     'kde KDE4'
 )

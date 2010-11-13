@@ -13,7 +13,7 @@ SLOT="0"
 LICENCES="GPL-2"
 
 MYOPTIONS="dbus svg gconf
-    gnome [[ requires = gtk ]]
+    gnome [[ requires = [ gtk gconf ] ]]
 
     gtk [[ description = [ Adds support for GTK window decorations ] ]]
     kde [[ description = [ Adds support for KDE4 window decorations ] ]]
@@ -35,8 +35,10 @@ DEPENDENCIES="
         x11-proto/renderproto
         x11-proto/xineramaproto
     build+run:
+        !x11-wm/compiz [[ description = [ compiz-core is renamed compiz package so installing both at the same time will cause problems ]  ]]
         dev-libs/glib:2
         dev-libs/libxml2
+        dev-libs/boost
         media-libs/libpng
         x11-dri/mesa
         x11-libs/cairo
@@ -94,7 +96,7 @@ CMAKE_SRC_CONFIGURE_OPTIONS=(
     'gconf USE_GCONF'
 )
 
-compiz_src_install() {
+compiz-core_src_install() {
     cmake_src_install
 
     # the install target doesn't respect CMAKE_INSTALL_PREFIX
@@ -102,7 +104,7 @@ compiz_src_install() {
     doins cmake/FindCompiz.cmake
 }
 
-compiz_pkg_postinst() {
+compiz-core_pkg_postinst() {
     if ever at_least 0.9.0; then
         elog "The Compiz API has changed since the last version!"
         elog "Please reinstall libcompizconfig and all plugins!"

@@ -16,5 +16,5 @@ DEPENDENCIES="
         media-libs/jpeg
         x11-libs/cairo
         x11-libs/pango
-        x11-wm/compiz
+        x11-wm/compiz-core
 "

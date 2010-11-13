@@ -12,6 +12,6 @@ DEPENDENCIES="
         sys-devel/gettext
     build+run:
         x11-plugins/compiz-plugins-main
-        x11-wm/compiz
+        x11-wm/compiz-core
 "
 

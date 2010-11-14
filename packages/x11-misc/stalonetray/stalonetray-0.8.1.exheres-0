@@ -1,19 +1,17 @@
 # Copyright 2009 Hong Hao <oahong@gmail.com>
 # Distributed under the terms of the GNU General Public License v2
 
-SUMMARY="STAnd-aLONE system tray(notification area)"
+SUMMARY="STAnd-aLONE system tray and notification area"
 DESCRIPTION="
-Stalonetray is a stand-alone freedesktop.org and KDE system tray
-(notification area) for X Window System/X11 (e.g. X.Org or XFree 86).
-It has full XEMBED support and minimal dependencies: an X11 lib only.
-Stalonetray works with virtually any EWMH-compliant window manager.
-"
+Stalonetray is a stand-alone freedesktop.org and KDE system tray (notification area) for X Window
+System/X11 (e.g. X.Org or XFree 86).  It has full XEMBED support and minimal dependencies: an X11
+lib only.  Stalonetray works with virtually any EWMH-compliant window manager."
 HOMEPAGE="http://stalonetray.sourceforge.net"
 DOWNLOADS="mirror://sourceforge/${PN}/${PNV}.tar.bz2"
 
 LICENCES="GPL-2"
 SLOT="0"
-PLATFORMS="~x86"
+PLATFORMS="~amd64 ~x86"
 MYOPTIONS="debug"
 
 DEPENDENCIES="
@@ -22,23 +20,19 @@ DEPENDENCIES="
     build+run:
         x11-libs/libX11
         x11-libs/libXpm
-    run:
-        debug? ( || ( x11-apps/xprop x11-apps/xwininfo ) )
 "
+#    run:
+#        debug? ( || ( x11-apps/xprop x11-apps/xwininfo ) )
+
 
 BUGS_TO="oahong@gmail.com"
 REMOTE_IDS="sourceforge:stalonetray freshmeat:stalonetray"
 UPSTREAM_RELEASE_NOTES="${HOMEPAGE}/news.html"
 
-DEFAULT_SRC_PREPARE_PATCHES=( "${FILES}"/${PN}-r555-fix-nodebug-build.patch )
 DEFAULT_SRC_CONFIGURE_PARAMS=(
     --enable-native-kde
 )
-DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
-    debug 'debug events-trace'
-    'debug embedding-confirmation-delay'
-    'debug dump-win-info'
-)
+DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=( debug )
 
 src_install() {
     default

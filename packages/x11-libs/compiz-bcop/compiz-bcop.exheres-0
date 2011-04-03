@@ -1,8 +1,0 @@
-# Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
-# Distributed under the terms of the GNU General Public License v2
-
-require compiz-bcop
-
-SLOT="0"
-PLATFORMS="~x86"
-

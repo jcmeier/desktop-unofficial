@@ -11,8 +11,8 @@ DEPENDENCIES="
         dev-util/pkg-config
     build+run:
         dev-lang/python:=[>=2.4]
-        x11-libs/libcompizconfig[>=0.6.99]
-	dev-python/Cython[<0.14]
+        x11-libs/compiz-libcompizconfig[>=0.6.99]
+	dev-python/Cython[>=0.12]
 "
 
 DISTUTILS_SRC_INSTALL_PARAMS=(

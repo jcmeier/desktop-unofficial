@@ -4,3 +4,5 @@
 HOMEPAGE="http://www.compiz.org"
 DOWNLOADS="http://releases.compiz.org/${PV}/${PNV}.tar.bz2"
 
+WORK=${WORKBASE}/${PN:7}
+

@@ -11,7 +11,7 @@ DEPENDENCIES="
         gnome-bindings/pygtk:2[>=2.12]
         gnome-desktop/librsvg:2
      run:
-        dev-python/compizconfig-python
+        dev-python/compiz-compizconfig-python
 "
 
 DISTUTILS_SRC_INSTALL_PARAMS=(

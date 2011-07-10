@@ -30,10 +30,8 @@ UPSTREAM_DOCUMENTATION="${HOMEPAGE}/documentation/faq"
 
 SLOT="0"
 PLATFORMS="~amd64 ~x86"
-MYOPTIONS="bidi debug doc nls perl png readline rplay svg truetype xinerama
-    tk     [[ requires = perl ]]
-    extra  [[ description = [ Install optional mini-icons and sound files ] ]]
-    stroke [[ description = [ Bind mouse motions to user-defined actions ] ]]"
+MYOPTIONS="bidi debug doc nls perl png readline svg truetype xinerama
+    extra  [[ description = [ Install optional mini-icons and sound files ] ]]"
 
 DEPENDENCIES="
     build:
@@ -51,7 +49,7 @@ DEPENDENCIES="
     build+run:
         media-libs/fontconfig[>=1.0.1]
         media-libs/freetype:2[>=2.0.6]
-        x11-libs/cairo[svg(+)?]
+        x11-libs/cairo
         x11-libs/libICE
         x11-libs/libSM
         x11-libs/libX11
@@ -59,19 +57,11 @@ DEPENDENCIES="
         x11-libs/libXext
         x11-libs/libXpm[>=3.4]
         x11-libs/libXrender
-        bidi?     ( dev-libs/fribidi[>=0.10.4] )
-        perl?     ( dev-lang/perl:=[>=5.004]
-            tk? (
-                dev-lang/tk
-                dev-perl/perl-tk
-                dev-perl/X11-Protocol[>=0.56]
-            )
-        )
+        bidi?     ( dev-libs/fribidi[>=0.19.2] )
+        perl?     ( dev-lang/perl:=[>=5.004] )
         png?      ( media-libs/libpng[>=1.0.4] )
-        rplay?    ( media-sound/rplay )
-        stroke?   ( dev-libs/libstroke[>=0.5.1] )
         svg?      ( gnome-desktop/librsvg[>=2.13.92] )
-        truetype? ( x11-libs/libXft )
+        truetype? ( x11-libs/libXft[>=2.0.0] )
         xinerama? ( x11-libs/libXinerama )
 "
 
@@ -83,6 +73,8 @@ DEFAULT_SRC_CONFIGURE_PARAMS=(
     # Disable support for GTK-1 and GNOME.
     --disable-gtk
     --without-gnome
+    --without-rplay-library
+    --without-stroke-library
 )
 DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
     bidi
@@ -100,8 +92,6 @@ DEFAULT_SRC_CONFIGURE_OPTION_WITHS=(
     'png png-library'
     'readline readline-library'
     '!readline termcap-library'
-    'rplay rplay-library'
-    'stroke stroke-library'
 )
 
 src_install() {
@@ -113,6 +103,7 @@ src_install() {
         # exheres does not yet support those options.
         edo rm -f "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/Tk.pm" \
                   "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/Toolkit.pm" \
+                  "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/Gtk.pm" \
                   "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/Gtk2.pm"
     else
         edo rm -rf "${IMAGE}/usr/bin/fvwm-perllib" \
@@ -122,13 +113,11 @@ src_install() {
     # Delete:
     #
     # * All empty directories.
-    # * The "fvwm-convert-2.6" binary. It contains no code.
     # 
     # Perform this deletion after all other deletion, above, so as to ensure
     # empty directories are indeed deleted.
     edo find "${IMAGE}" \
         -type d -empty -delete ,\
-        -name '*convert-2.6*' -delete ,\
         -name '*FvwmGtkDebug*' -delete
 
     # Install extra icons and audio, if desired.

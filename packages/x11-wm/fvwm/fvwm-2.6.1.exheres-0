@@ -96,7 +96,7 @@ src_install() {
     if option perl; then
         # Selectively remove all "perl-tk" and "perl-gtk2" modules, as this
         # exheres does not yet support those options.
-        edo rm -f "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/{Tk,Toolkit,Gtk,Gtk2}.pm"
+        edo rm -f "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/"{Tk,Toolkit,Gtk,Gtk2}.pm
     else
         edo rm -rf "${IMAGE}/usr/bin/fvwm-perllib" \
                    "${IMAGE}/usr/share/man/man1/fvwm-perllib.1"

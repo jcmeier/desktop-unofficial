@@ -6,11 +6,8 @@
 # $Header: /var/cvsroot/gentoo-x86/x11-wm/fvwm/fvwm-2.5.26.ebuild,v 1.2 2009/01/09 15:06:36 remi Exp $
 
 SUMMARY="FVWM is an ICCCM-compliant multiple desktop window manager for X11."
-DESCRIPTION="
-FVWM (F? Virtual Window Manager) is an X11 window manager designed to minimize
-memory consumption; customize window, icon, and desktop appearance; and provide
-multiple virtual desktops.
-"
+DESCRIPTION="FVWM (F? Virtual Window Manager) is an X11 window manager designed to minimize memory
+consumption; customize window, icon, and desktop appearance; and provide multiple virtual desktops."
 
 HOMEPAGE="http://www.fvwm.org"
 LICENCES="GPL-2"
@@ -24,23 +21,23 @@ DOWNLOADS="listed-only: (
 )"
 
 BUGS_TO="oahong@gmail.com"
-REMOTE_IDS="freshmeat:FVWM"
+REMOTE_IDS="freshmeat:${PN}"
 UPSTREAM_RELEASE_NOTES="${HOMEPAGE}/news/#${PV}"
 UPSTREAM_DOCUMENTATION="${HOMEPAGE}/documentation/faq"
 
 SLOT="0"
 PLATFORMS="~amd64 ~x86"
-MYOPTIONS="bidi debug doc nls perl png readline svg truetype xinerama
+MYOPTIONS="bidi debug doc perl png readline svg truetype xinerama
     extra  [[ description = [ Install optional mini-icons and sound files ] ]]"
 
 DEPENDENCIES="
     build:
         dev-util/pkg-config
+        sys-devel/gettext
         x11-proto/renderproto
         x11-proto/xextproto
         x11-proto/xproto
         doc?      ( dev-libs/libxslt )
-        nls?      ( sys-devel/gettext )
         readline? (
             sys-libs/ncurses
             sys-libs/readline
@@ -67,8 +64,8 @@ DEPENDENCIES="
 
 DEFAULT_SRC_CONFIGURE_PARAMS=(
     # Create subdirectories for modules and data.
-    --enable-package-subdir
-    # Set a default imagepath. (This is overrideable at runtime.) 
+    --enable-package-subdirs
+    # Set a default imagepath. (This is overrideable at runtime.)
     --with-imagepath="/usr/share/icons/fvwm:/usr/share/pixmaps:/usr/include/X11/bitmaps"
     # Disable support for GTK-1 and GNOME.
     --disable-gtk
@@ -82,8 +79,6 @@ DEFAULT_SRC_CONFIGURE_OPTION_ENABLES=(
     'debug command-log'
     'doc htmldoc'
     'doc mandoc'
-    'nls'
-    'nls iconv'
     'perl perllib'
     'svg rsvg'
     xinerama
@@ -101,10 +96,7 @@ src_install() {
     if option perl; then
         # Selectively remove all "perl-tk" and "perl-gtk2" modules, as this
         # exheres does not yet support those options.
-        edo rm -f "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/Tk.pm" \
-                  "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/Toolkit.pm" \
-                  "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/Gtk.pm" \
-                  "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/Gtk2.pm"
+        edo rm -f "${IMAGE}/usr/share/fvwm/perllib/FVWM/Module/{Tk,Toolkit,Gtk,Gtk2}.pm"
     else
         edo rm -rf "${IMAGE}/usr/bin/fvwm-perllib" \
                    "${IMAGE}/usr/share/man/man1/fvwm-perllib.1"
@@ -113,7 +105,7 @@ src_install() {
     # Delete:
     #
     # * All empty directories.
-    # 
+    #
     # Perform this deletion after all other deletion, above, so as to ensure
     # empty directories are indeed deleted.
     edo find "${IMAGE}" \
@@ -157,3 +149,4 @@ EOF
 /usr/bin/fvwm
 EOF
 }
+

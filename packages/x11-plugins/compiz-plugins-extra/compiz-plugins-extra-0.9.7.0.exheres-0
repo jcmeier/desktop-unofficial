@@ -1,20 +1,30 @@
+# Copyright 2009 Jan Meier <jan@codejunky.org>
 # Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Copyright 2012 Xavier Barrachina <xabarci@doctor.upv.es>
 # Distributed under the terms of the GNU General Public License v2
 
-require compiz cmake
+require compiz cmake launchpad [ branch=0.9.7 pnv=${PNV} suffix=tar.bz2 ]
 
 SUMMARY="Extra compiz plugins"
+
 LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~x86 ~amd64"
 MYOPTIONS="libnotify"
 
 DEPENDENCIES="
     build:
-        dev-util/intltool[>=0.35]
+        dev-util/intltool[>=0.40]
         sys-devel/gettext
     build+run:
-        x11-libs/cairo
+        dev-libs/boost
+        x11-dri/mesa
+        x11-libs/cairo[X]
+        x11-libs/libICE
+        x11-libs/libX11
+        x11-libs/libXext
         x11-plugins/compiz-plugins-main
-        x11-wm/compiz-core
+        x11-wm/compiz
         libnotify? ( x11-libs/libnotify )
 "
 

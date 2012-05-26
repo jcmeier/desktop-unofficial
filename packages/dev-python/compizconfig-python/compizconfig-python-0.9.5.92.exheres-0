@@ -1,18 +1,22 @@
 # Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Copyright 2012 Xavier Barrachina <xabarci@doctor.upv.es>
 # Distributed under the terms of the GNU General Public License v2
 
-require compiz distutils
+require cmake compiz distutils launchpad [ branch=0.9.5 pn=compiz-${PN} pnv=${PNV} suffix=tar.bz2 ]
 
 SUMMARY="Python bindings for compizconfig"
-LCENCES="GPL-2"
+
+LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~x86 ~amd64"
 
 DEPENDENCIES="
     build:
         dev-util/pkg-config
     build+run:
         dev-lang/python:=[>=2.4]
-        x11-libs/compiz-libcompizconfig[>=0.6.99]
-	dev-python/Cython[>=0.12]
+        x11-libs/libcompizconfig[>=0.9.5]
+        dev-python/Cython[>=0.12]
 "
 
 DISTUTILS_SRC_INSTALL_PARAMS=(

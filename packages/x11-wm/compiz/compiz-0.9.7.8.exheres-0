@@ -1,27 +1,22 @@
 # Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Copyright 2012 Xavier Barrachina <xabarci@doctor.upv.es>
 # Distributed under the terms of the GNU General Public License v2
 
-require cmake
-
-export_exlib_phases src_install pkg_postinst
+require cmake launchpad [ branch=0.9.7 pn=${PN}-core pnv=${PNV} suffix=tar.bz2 ]
 
 SUMMARY="A compositing window manager using OpenGL acceleration for 3D graphics"
 DESCRIPTION=""
 HOMEPAGE="http://www.compiz.org"
-DOWNLOADS="http://releases.compiz.org/${PV}/${PNV}.tar.gz"
-SLOT="0"
+
 LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~x86 ~amd64"
 
 MYOPTIONS="dbus svg gconf
     gnome [[ requires = [ gtk gconf ] ]]
-
     gtk [[ description = [ Adds support for GTK window decorations ] ]]
     kde [[ description = [ Adds support for KDE4 window decorations ] ]]
 "
-
-# TODO: more options?
-# dev-libs/glib:2 -> glib ( BUILD_COMPIZ_GLIB )
-# x11-libs/cairo -> annotate ( BUILD_COMPIZ_ANNOTATE )
 
 DEPENDENCIES="
     build:
@@ -35,16 +30,16 @@ DEPENDENCIES="
         x11-proto/renderproto
         x11-proto/xineramaproto
     build+run:
-        !x11-wm/compiz [[ description = [ compiz-core is renamed compiz package so installing both at the same time will cause problems ]  ]]
+        !x11-wm/compiz-core [[ description = [ compiz is renamed compiz again so installing both at the same time will cause problems ]  ]]
         dev-libs/glib:2
         dev-libs/libxml2
         dev-libs/boost
         media-libs/libpng
         x11-dri/mesa
-        x11-libs/cairo
+        x11-libs/cairo[X]
         x11-libs/libICE
         x11-libs/libSM
-        x11-libs/libX11[xcb(+)]
+        x11-libs/libX11
         x11-libs/libXcomposite
         x11-libs/libXdamage
         x11-libs/libXext
@@ -77,16 +72,17 @@ DEPENDENCIES="
         )
 "
 
-WORK=${WORKBASE}/${PN:7}
+WORK=${WORKBASE}/${PNV}
 
 CMAKE_SRC_CONFIGURE_OPTION_BUILDS=(
     'gnome GNOME'
-    'gnome GNOME_KEYBINDINGS'
     'gnome METACITY'
-
     'gtk GTK'
-
     'kde KDE4'
+)
+
+CMAKE_SRC_CONFIGURE_PARAMS=(
+    -DCOMPIZ_BUILD_TESTING=OFF
 )
 
 CMAKE_SRC_CONFIGURE_OPTIONS=(
@@ -98,7 +94,7 @@ CMAKE_SRC_CONFIGURE_OPTIONS=(
     'gconf USE_GCONF'
 )
 
-compiz-core_src_install() {
+src_install() {
     cmake_src_install
 
     # the install target doesn't respect CMAKE_INSTALL_PREFIX
@@ -106,9 +102,3 @@ compiz-core_src_install() {
     doins cmake/FindCompiz.cmake
 }
 
-compiz-core_pkg_postinst() {
-    if ever at_least 0.9.0; then
-        elog "The Compiz API has changed since the last version!"
-        elog "Please reinstall libcompizconfig and all plugins!"
-    fi
-}

@@ -1,17 +1,22 @@
 # Copyright 2009 Marvin Schmidt <marvin_schmidt@gmx.net>
+# Copyright 2012 Xavier Barrachina <xabarci@doctor.upv.es>
 # Distributed under the terms of the GNU General Public License v2
 
-require gnome-2 compiz distutils
+require compiz cmake distutils launchpad [ branch=0.9.5 pn=compiz-${PN} pnv=${PNV} suffix=tar.bz2 ]
 
 SUMMARY="Compiz Config Settings Manager"
+
 LICENCES="GPL-2"
+SLOT="0"
+PLATFORMS="~x86 ~amd64"
 
 DEPENDENCIES="
     build+run:
         gnome-bindings/pygtk:2[>=2.12]
         gnome-desktop/librsvg:2
+        x11-libs/libcompizconfig
      run:
-        dev-python/compiz-compizconfig-python
+        dev-python/compizconfig-python
 "
 
 DISTUTILS_SRC_INSTALL_PARAMS=(

@@ -1,7 +1,7 @@
 # Copyright 2010 Hong Hao <oahong@gmail.com>
 # Distributed under the terms of the GNU General Public License v2
 
-require debian-upstream
+require debian-upstream gtk-icon-cache
 
 SUMMARY="Style neutral, scalable cursor theme"
 HOMEPAGE="http://jimmac.musichall.cz/themes.php?skin=7"
@@ -19,3 +19,4 @@ src_install() {
     insinto /usr/share/icons
     doins -r DMZ-*
 }
+

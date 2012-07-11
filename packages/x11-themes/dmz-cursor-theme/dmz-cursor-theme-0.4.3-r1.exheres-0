@@ -11,12 +11,26 @@ SLOT="0"
 PLATFORMS="~x86 ~amd64"
 MYOPTIONS=""
 
-DEPENDENCIES=""
+DEPENDENCIES="
+    build:
+       x11-apps/xcursorgen 
+"
 
 BUGS_TO="oahong@gmail.com"
 
+src_compile() {
+    for d in DMZ-{Black,White} ; do
+        cd "${WORK}"/${d}/pngs
+        edo ./make.sh
+    done
+}
+
 src_install() {
-    insinto /usr/share/icons
-    doins -r DMZ-*
+    for d in DMZ-{Black,White} ; do
+        insinto /usr/share/icons/${d}
+        doins ${d}/*.theme
+        insinto /usr/share/icons/${d}/cursors
+        doins ${d}/xcursors/*
+    done
 }
 

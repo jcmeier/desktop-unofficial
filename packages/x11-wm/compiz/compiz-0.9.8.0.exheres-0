@@ -2,7 +2,7 @@
 # Copyright 2012 Xavier Barrachina <xabarci@doctor.upv.es>
 # Distributed under the terms of the GNU General Public License v2
 
-require cmake launchpad [ branch=0.9.7 pn=${PN}-core pnv=${PNV} suffix=tar.bz2 ]
+require cmake launchpad [ branch=0.9.8 pn=${PN} pnv=${PNV} suffix=tar.bz2 ]
 
 SUMMARY="A compositing window manager using OpenGL acceleration for 3D graphics"
 DESCRIPTION=""
@@ -10,18 +10,22 @@ HOMEPAGE="http://www.compiz.org"
 
 LICENCES="GPL-2"
 SLOT="0"
-PLATFORMS="~x86 ~amd64"
+PLATFORMS="~amd64 ~x86"
 
-MYOPTIONS="dbus svg gconf
+##OpenGL|ES is disabled since it doesn't work with the NVIDIA drivers, at least not out of the box
+
+MYOPTIONS="dbus gconf
     gnome [[ requires = [ gtk gconf ] ]]
     gtk [[ description = [ Adds support for GTK window decorations ] ]]
     kde [[ description = [ Adds support for KDE4 window decorations ] ]]
 "
+#    gles [[ description = [ OpenGL|ES support (e.g. for ARM platforms) ] ]]
 
 DEPENDENCIES="
     build:
         dev-libs/libxslt
-        dev-util/intltool[>=0.23]
+        dev-util/intltool[>=0.40]
+        dev-util/pkg-config
         sys-devel/gettext
         x11-proto/compositeproto
         x11-proto/damageproto
@@ -30,14 +34,21 @@ DEPENDENCIES="
         x11-proto/renderproto
         x11-proto/xineramaproto
     build+run:
-        !x11-wm/compiz-core [[ description = [ compiz is renamed compiz again so installing both at the same time will cause problems ]  ]]
+        dev-lang/python:=[>=2.4]
+        dev-libs/boost
         dev-libs/glib:2
         dev-libs/libxml2
-        dev-libs/boost
+        dev-libs/protobuf
+        dev-python/Cython[>=0.12]
+        gnome-bindings/pygtk:2[>=2.12]
+        gnome-desktop/librsvg:2[>=2.14]
+        media-libs/jpeg
         media-libs/libpng
         x11-dri/mesa
-        x11-libs/cairo[X]
+        x11-libs/cairo[>=1.0][X]
+        x11-libs/gtk+:2[>=2.8]
         x11-libs/libICE
+        x11-libs/libnotify
         x11-libs/libSM
         x11-libs/libX11
         x11-libs/libXcomposite
@@ -46,21 +57,17 @@ DEPENDENCIES="
         x11-libs/libXinerama
         x11-libs/libXrandr
         x11-libs/libXrender[>=0.9.3]
+        x11-libs/pango
         x11-libs/startup-notification[>=0.7]
+
         dbus? (
             sys-apps/dbus
         )
         gtk? (
-              gnome-desktop/libwnck:1
-              x11-libs/gtk+:2[>=2.8]
-              x11-libs/pango
+            gnome-desktop/libwnck:1
         )
         kde? (
             kde/kdelibs:4[>=4.3.0]
-        )
-        svg? (
-            gnome-desktop/librsvg:2[>=2.14]
-            x11-libs/cairo[>=1.0]
         )
         gconf? (
             gnome-platform/GConf:2
@@ -70,11 +77,47 @@ DEPENDENCIES="
             gnome-desktop/gnome-desktop:2
             gnome-desktop/gnome-control-center
         )
+
+        !dev-python/compizconfig-python [[
+            description = [ All plugins/libraries are in compiz now ]
+            resolution = uninstall-blocked-after
+        ]]
+
+        !x11-apps/ccsm [[
+            description = [ All plugins/libraries are in compiz now ]
+            resolution = uninstall-blocked-after
+        ]]
+
+        !x11-libs/libcompizconfig [[
+            description = [ All plugins/libraries are in compiz now ]
+            resolution = uninstall-blocked-after
+        ]]
+
+        !x11-plugins/compiz-plugins-extra [[
+            description = [ All plugins/libraries are in compiz now ]
+            resolution = uninstall-blocked-after
+        ]]
+
+        !x11-plugins/compiz-plugins-main [[
+            description = [ All plugins/libraries are in compiz now ]
+            resolution = uninstall-blocked-after
+        ]]
 "
 
 WORK=${WORKBASE}/${PNV}
 
+src_prepare() {
+    default
+
+    edo sed -e "s:/lib/:/${LIBDIR}/:" \
+            -i compizconfig/libcompizconfig/cmake/LibCompizConfigCommon.cmake
+
+    edo sed -e "s:/lib):/${LIBDIR}):" \
+            -i compizconfig/gsettings/gsettings_backend_shared/CMakeLists.txt
+}
+
 CMAKE_SRC_CONFIGURE_OPTION_BUILDS=(
+    #'gles GLES'
     'gnome GNOME'
     'gnome METACITY'
     'gtk GTK'
@@ -83,15 +126,17 @@ CMAKE_SRC_CONFIGURE_OPTION_BUILDS=(
 
 CMAKE_SRC_CONFIGURE_PARAMS=(
     -DCOMPIZ_BUILD_TESTING=OFF
+    # imgsvg plugin is broken https://bugs.launchpad.net/ubuntu/+source/compiz/+bug/971260 milestone: 0.9.8.1
+    -DCOMPIZ_DISABLE_PLUGIN_IMGSVG=TRUE
 )
 
 CMAKE_SRC_CONFIGURE_OPTIONS=(
     '!dbus COMPIZ_DISABLE_PLUGIN_DBUS'
     '!gnome COMPIZ_DISABLE_PLUGIN_GNOMECOMPAT'
     '!kde COMPIZ_DISABLE_PLUGIN_KDE'
-    '!svg COMPIZ_DISABLE_PLUGIN_IMGSVG'
 
     'gconf USE_GCONF'
+    'gnome USE_GSETTINGS'
 )
 
 src_install() {

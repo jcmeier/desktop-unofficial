@@ -126,8 +126,6 @@ CMAKE_SRC_CONFIGURE_OPTION_BUILDS=(
 
 CMAKE_SRC_CONFIGURE_PARAMS=(
     -DCOMPIZ_BUILD_TESTING=OFF
-    # imgsvg plugin is broken https://bugs.launchpad.net/ubuntu/+source/compiz/+bug/971260 milestone: 0.9.8.1
-    -DCOMPIZ_DISABLE_PLUGIN_IMGSVG=TRUE
 )
 
 CMAKE_SRC_CONFIGURE_OPTIONS=(
